@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chess Vault - Login</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/png" href="img/logo-knight.png">
+</head>
+<body>
+
+<!-- ========== AUTH SCREEN ========== -->
+<div id="auth-screen" class="visible">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-icon"><img src="img/logo-knight.png" alt="Chess Vault" class="logo-icon-img" /></div>
+      <div>
+        <h1 class="auth-logo-text">Chess Vault</h1>
+        <p class="auth-logo-sub">Biblioteca de Xadrez</p>
+      </div>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-tab="login">Login</button>
+      <button class="auth-tab" data-tab="register">Registrar</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-form" class="auth-form active">
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input id="login-email" type="email" class="auth-input" placeholder="seu@email.com" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Senha</label>
+        <input id="login-password" type="password" class="auth-input" placeholder="Sua senha" required />
+      </div>
+      <button type="submit" class="auth-submit">Entrar</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="register-form" class="auth-form">
+      <div class="auth-field">
+        <label class="auth-label">Nome</label>
+        <input id="register-name" type="text" class="auth-input" placeholder="Seu nome completo" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Email</label>
+        <input id="register-email" type="email" class="auth-input" placeholder="seu@email.com" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Senha</label>
+        <input id="register-password" type="password" class="auth-input" placeholder="Mínimo 8 caracteres" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Confirmar Senha</label>
+        <input id="register-confirm-password" type="password" class="auth-input" placeholder="Repita a senha" required />
+      </div>
+      <button type="submit" class="auth-submit">Criar Conta</button>
+    </form>
+  </div>
+</div>
+
+<!-- ========== APP SCREEN (pós-login) ========== -->
+<div id="app-screen" class="hidden">
+  <aside class="sidebar">
+    <header class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon"><img src="img/logo-knight.png" alt="Chess Vault" class="logo-icon-img" /></div>
+        <div>
+          <h1 class="sidebar-logo-text">Chess Vault</h1>
+          <p class="sidebar-logo-sub">V-4.0</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Estudo</div>
+      <button class="nav-item active" data-section="jogadores">
+        <span class="nav-item-icon">♟</span><span>Jogadores</span>
+      </button>
+      <button class="nav-item" data-section="games">
+        <span class="nav-item-icon">♞</span><span>Minhas Partidas</span>
+      </button>
+      <button class="nav-item" data-section="puzzles">
+        <span class="nav-item-icon">🧩</span><span>Puzzles</span>
+      </button>
+      <button class="nav-item" data-section="books">
+        <span class="nav-item-icon">📚</span><span>Livros</span>
+      </button>
+      <button class="nav-item" data-section="videos">
+        <span class="nav-item-icon">🎬</span><span>Vídeos</span>
+      </button>
+
+      <div class="nav-section-label">Conta</div>
+      <button class="nav-item" data-section="logout">
+        <span class="nav-item-icon">🚪</span><span>Sair</span>
+      </button>
+    </nav>
+
+    <footer class="sidebar-footer">
+      <div class="user-pill" id="user-pill">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <div>
+          <div class="user-name" id="user-name">Usuário</div>
+          <div class="user-role">Jogador</div>
+        </div>
+      </div>
+    </footer>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <h2 class="topbar-title" id="topbar-title">Jogadores</h2>
+    </header>
+
+    <div class="content-area">
+      <!-- Jogadores -->
+      <section id="jogadores-section" data-section-content>
+        <div class="section-header">
+          <h2 class="section-title">Jogadores</h2>
+          <button id="add-player-btn" class="btn btn-primary">+ Adicionar Jogador</button>
+        </div>
+        <div id="jogadores-list">
+          <!-- Carregado via API -->
+        </div>
+      </section>
+
+      <!-- Detalhes do Jogador -->
+      <section id="player-detail-section" data-section-content style="display:none;">
+        <div class="viewer-header">
+          <button class="viewer-back" id="player-detail-back-btn">← Voltar para Jogadores</button>
+        </div>
+        <div id="player-detail-content"></div>
+      </section>
+
+      <!-- Meu Perfil -->
+      <section id="profile-section" data-section-content style="display:none;">
+        <div class="viewer-header">
+          <button class="viewer-back" id="profile-back-btn">← Voltar</button>
+        </div>
+        <div class="player-detail-hero">
+          <div class="player-detail-hero-avatar">
+            <span id="profile-avatar" class="player-detail-hero-fallback" style="display:flex;">U</span>
+          </div>
+          <div class="player-detail-hero-info">
+            <div class="player-detail-nome" id="profile-nome">Usuário</div>
+            <p class="player-detail-desc" style="margin-top:2px;">
+              <strong>Email:</strong> <span id="profile-email">—</span>
+            </p>
+            <p class="player-detail-desc" style="margin-top:2px;">
+              <strong>Perfil:</strong> Jogador
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Minhas Partidas -->
+      <section id="games-section" data-section-content style="display:none;">
+        <div class="section-header">
+          <h2 class="section-title">Minhas Partidas</h2>
+          <button id="new-game-btn" class="btn btn-primary">+ Nova Partida</button>
+        </div>
+        <div id="games-list">
+          <!-- Carregado via API -->
+        </div>
+      </section>
+
+      <!-- Puzzles -->
+      <section id="puzzles-section" data-section-content style="display:none;">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Puzzles</h2>
+            <p style="color:var(--ink-muted);font-size:13px;margin-top:4px;">
+              Puzzle do dia e exercícios táticos via Chess.com
+            </p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary" onclick="fetchPuzzle('diario')">☀️ Puzzle do Dia</button>
+            <button class="btn btn-primary"   onclick="fetchPuzzle('aleatorio')">🎲 Aleatório</button>
+          </div>
+        </div>
+        <div id="puzzle-area">
+          <!-- Carregado por puzzles.js -->
+        </div>
+      </section>
+
+      <!-- Livros -->
+      <section id="books-section" data-section-content style="display:none;">
+        <div class="section-header">
+          <h2 class="section-title">Livros</h2>
+          <button id="add-book-btn" class="btn btn-primary">+ Adicionar Livro</button>
+        </div>
+        <div class="stats-row" id="books-stats-row" style="margin-bottom: 1.5rem;">
+          <div class="stat-card">
+            <div class="stat-label">Total de Livros</div>
+            <div class="stat-value" id="stat-total-books">0</div>
+          </div>
+        </div>
+        <div id="books-list">
+          <!-- Carregado via API -->
+        </div>
+      </section>
+
+      <!-- Vídeos -->
+      <section id="videos-section" data-section-content style="display:none;">
+        <div class="section-header">
+          <h2 class="section-title">Vídeos</h2>
+          <button id="add-video-btn" class="btn btn-primary">+ Adicionar Vídeo</button>
+        </div>
+        <div class="stats-row" style="margin-bottom: 1.5rem;">
+          <div class="stat-card">
+            <div class="stat-label">Total de Vídeos</div>
+            <div class="stat-value" id="stat-total-videos">0</div>
+          </div>
+        </div>
+        <div id="videos-list">
+          <!-- Carregado via API -->
+        </div>
+      </section>
+
+      <!-- Visualizador de Partida -->
+      <section id="viewer-section" data-section-content style="display:none;">
+        <div class="viewer-header">
+          <button class="viewer-back" id="viewer-back-btn">← Voltar para Partidas</button>
+          <div class="viewer-game-title" id="viewer-title">Partida</div>
+        </div>
+        <div class="viewer-layout">
+          <div class="viewer-board-col">
+            <div id="chess-board-wrap">
+              <div id="vboard-ranks"></div>
+              <div id="vboard"></div>
+            </div>
+            <div id="vboard-files"></div>
+            <div class="viewer-controls">
+              <button class="ctrl-btn" id="btn-start" title="Início">⏮</button>
+              <button class="ctrl-btn" id="btn-prev" title="Anterior">◀</button>
+              <span id="move-counter">0 / 0</span>
+              <button class="ctrl-btn" id="btn-next" title="Próximo">▶</button>
+              <button class="ctrl-btn" id="btn-end" title="Final">⏭</button>
+            </div>
+          </div>
+          <div class="viewer-moves-col">
+            <div class="moves-panel-header">Movimentos</div>
+            <div class="moves-list"><table class="moves-table" id="moves-table"></table></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- Modal: Nova Partida -->
+<div id="new-game-overlay" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title">Nova Partida</h2>
+      <button class="modal-close" id="new-game-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab active" data-newgame-tab="manual">✍️ Manual</button>
+        <button type="button" class="modal-tab" data-newgame-tab="buscar">🔍 Buscar por Jogadores</button>
+      </div>
+
+      <form id="new-game-form" class="modal-tab-panel active">
+        <div class="auth-field">
+          <label class="auth-label">Nome da Partida</label>
+          <input id="new-game-nome" type="text" class="auth-input" placeholder="Ex: Carlsen vs Nepo, Rd 6" required />
+        </div>
+        <div class="auth-field">
+          <label class="auth-label">PGN</label>
+          <textarea id="new-game-pgn" class="auth-input" rows="6" placeholder="1. e4 e5 2. Nf3 ..." required></textarea>
+        </div>
+        <button type="submit" class="auth-submit">Salvar Partida</button>
+      </form>
+
+      <div id="new-game-search-panel" class="modal-tab-panel">
+        <form id="new-game-search-form">
+          <div class="auth-field">
+            <label class="auth-label">Jogador 1 (usuário no Chess.com)</label>
+            <input id="new-game-search-jogador1" type="text" class="auth-input" placeholder="Ex: MagnusCarlsen" required />
+          </div>
+          <div class="auth-field">
+            <label class="auth-label">Jogador 2 (usuário no Chess.com)</label>
+            <input id="new-game-search-jogador2" type="text" class="auth-input" placeholder="Ex: Hikaru" required />
+          </div>
+          <div class="auth-field">
+            <label class="auth-label">Ano</label>
+            <input id="new-game-search-ano" type="number" class="auth-input" placeholder="Ex: 2023" required />
+          </div>
+          <button type="submit" class="auth-submit">Buscar Partidas</button>
+        </form>
+        <div id="new-game-search-results"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Buscar Livro (Google Books) -->
+<div id="book-search-overlay" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title">Buscar Livro</h2>
+      <button class="modal-close" id="book-search-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="book-search-form">
+        <div class="auth-field">
+          <label class="auth-label">Título ou tema</label>
+          <input id="book-search-input" type="text" class="auth-input" placeholder="Ex: Bobby Fischer teaches chess" required />
+        </div>
+        <button type="submit" class="auth-submit">Buscar</button>
+      </form>
+      <div id="book-search-results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Detalhes do Livro -->
+<div id="book-detail-overlay" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title" id="book-detail-title">Livro</h2>
+      <button class="modal-close" id="book-detail-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="book-detail-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Criar Jogador -->
+<div id="new-player-overlay" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title">Adicionar Jogador</h2>
+      <button class="modal-close" id="new-player-close">✕</button>
+    </div>
+    <form id="new-player-form" class="modal-body">
+
+      <!-- Chess.com lookup -->
+      <div class="auth-field">
+        <label class="auth-label">Usuário no Chess.com (opcional)</label>
+        <div style="display:flex; gap:8px;">
+          <input id="new-player-chesscom-username" type="text" class="auth-input"
+                 placeholder="Ex: MagnusCarlsen" style="flex:1;" />
+          <button type="button" id="buscar-chesscom-btn" class="btn btn-secondary"
+                  style="white-space:nowrap;">🔍 Buscar</button>
+        </div>
+        <p style="font-size:12px; color:var(--ink-faint); margin-top:4px;">
+          Preenche nome, rating, descrição e foto a partir do perfil público do Chess.com.
+        </p>
+      </div>
+
+      <!-- Preview da foto buscada -->
+      <div id="new-player-avatar-wrap" style="margin-bottom:12px; display:flex; gap:12px; align-items:center;">
+        <img id="new-player-avatar-preview" src="" alt="Foto"
+             style="display:none; width:64px; height:64px; border-radius:8px;
+                    object-fit:cover; border:1px solid var(--border);" />
+        <span id="new-player-avatar-label" style="font-size:12px; color:var(--ink-faint);">
+          A foto aparece aqui após buscar no Chess.com
+        </span>
+      </div>
+
+      <!-- Campo oculto que guarda a URL real da imagem -->
+      <input type="hidden" id="new-player-imagem-url" />
+
+      <div class="auth-field">
+        <label class="auth-label">Nome</label>
+        <input id="new-player-nome" type="text" class="auth-input"
+               placeholder="Ex: Garry Kasparov" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Rating FIDE</label>
+        <input id="new-player-rating" type="number" class="auth-input"
+               placeholder="Ex: 2812" required />
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Descrição</label>
+        <textarea id="new-player-descricao" class="auth-input" rows="3"
+                  placeholder="Uma breve descrição sobre o jogador"></textarea>
+      </div>
+      <div class="auth-field">
+        <label class="auth-label">Aberturas favoritas</label>
+        <input id="new-player-aberturas" type="text" class="auth-input"
+               placeholder="Separadas por vírgula: Sicilian Defence, Grünfeld" />
+      </div>
+      <button type="submit" class="auth-submit">Salvar Jogador</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Buscar Vídeo (YouTube) -->
+<div id="video-search-overlay" class="modal-overlay">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title">Buscar Vídeo</h2>
+      <button class="modal-close" id="video-search-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="video-search-form">
+        <div class="auth-field">
+          <label class="auth-label">Assunto</label>
+          <input id="video-search-input" type="text" class="auth-input" placeholder="Ex: Sicilian Defence, Magnus Carlsen, endgames" required />
+        </div>
+        <button type="submit" class="auth-submit">Buscar</button>
+      </form>
+      <div id="video-search-results"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Assistir Vídeo (embed, sem sair do site) -->
+<div id="video-player-overlay" class="modal-overlay">
+  <div class="modal-dialog modal-dialog-video">
+    <div class="modal-header">
+      <h2 class="modal-title" id="video-player-title">Vídeo</h2>
+      <button class="modal-close" id="video-player-close">✕</button>
+    </div>
+    <div class="modal-body modal-body-video">
+      <div class="video-player-embed">
+        <iframe id="video-player-iframe"
+                src=""
+                title="Player de vídeo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast"></div>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/pgn-parser-engine.js"></script>
+<script src="js/pgn-parser-adapter.js"></script>
+<script src="js/chess-engine.js"></script>
+<script src="js/games-viewer.js"></script>
+<script src="js/games.js"></script>
+<script src="js/books.js"></script>
+<script src="js/jogadores.js"></script>
+<script src="js/videos.js"></script>
+<script src="js/puzzles.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

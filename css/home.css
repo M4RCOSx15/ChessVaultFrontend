@@ -1,0 +1,89 @@
+/* css/home.css - Tela mínima pós-login (placeholder até você construir o app de verdade) */
+
+#app-screen {
+  display: none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: var(--spacing-2xl);
+}
+
+#app-screen.visible { display: flex; }
+
+.home-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.home-card h2 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.home-card p {
+  color: var(--ink-muted);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* ========== BOTÕES (versão mínima de components.css) ========== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-semibold);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all var(--trans-normal);
+  padding: 10px 16px;
+  height: var(--button-h);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+}
+
+/* ========== TOAST (necessário para showToast funcionar) ========== */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xl);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--trans-slow);
+  pointer-events: none;
+  z-index: var(--z-toast);
+}
+
+#toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.toast-success { background: var(--success); }
+.toast-error { background: var(--danger); }
+.toast-info { background: var(--info); color: #fff; }

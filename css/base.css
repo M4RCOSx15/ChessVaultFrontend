@@ -1,0 +1,38 @@
+/* css/base.css - Reset CSS e estilos base */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+}
+
+h1, h2, h3 {
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+
+p { margin: 0; line-height: var(--lh-normal); }
+
+input, button {
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+.hidden { display: none !important; }

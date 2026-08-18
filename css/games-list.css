@@ -1,0 +1,32 @@
+/* css/games-list.css - Lista de partidas (Minhas Partidas) */
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.game-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.game-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 4px 24px rgba(30, 28, 22, 0.08);
+  transform: translateY(-2px);
+}
+
+.game-card-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.game-card-sub { font-size: 13px; color: var(--ink-muted); }
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--ink-muted);
+}
+.empty-state-icon { font-size: 42px; margin-bottom: 1rem; opacity: 0.5; }
+.empty-state-title { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }

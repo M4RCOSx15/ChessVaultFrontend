@@ -1,0 +1,72 @@
+/* css/variables.css - Variáveis globais e tokens de design */
+
+:root {
+  /* ========== CORES ========== */
+  --bg: #f5f4ef;
+  --surface: #efefea;
+  --surface-hover: #e8e7e1;
+  --card: #ffffff;
+  --border: rgba(60, 55, 40, 0.13);
+  --border-strong: rgba(60, 55, 40, 0.22);
+
+  /* Textos */
+  --ink: #1e1c16;
+  --ink-muted: #6b6558;
+  --ink-faint: #9e9890;
+
+  /* Cores de Ação */
+  --cobalt: #1c4f8a;
+  --cobalt-light: #e6eef8;
+  --cobalt-hover: #153d6e;
+
+  /* Status */
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+  --info: #17a2b8;
+
+  /* ========== TIPOGRAFIA ========== */
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-base: 15px;
+  --fs-lg: 16px;
+  --fs-xl: 17px;
+  --fs-2xl: 22px;
+
+  --lh-tight: 1.1;
+  --lh-normal: 1.5;
+
+  /* ========== ESPAÇAMENTO ========== */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* ========== BORDER RADIUS ========== */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-full: 9999px;
+
+  /* ========== DIMENSÕES ========== */
+  --button-h: 34px;
+
+  /* ========== SOMBRAS ========== */
+  --shadow-lg: 0 4px 24px rgba(30, 28, 22, 0.08);
+  --shadow-xl: 0 8px 32px rgba(30, 28, 22, 0.12);
+
+  /* ========== TRANSIÇÕES ========== */
+  --trans-normal: 0.15s ease;
+  --trans-slow: 0.18s ease;
+
+  /* ========== Z-INDEX ========== */
+  --z-toast: 1050;
+}
