@@ -38,6 +38,25 @@ function showSection(section) {
   document.getElementById('topbar-title').textContent = titles[section] || '';
 }
 
+function openSidebar() {
+  document.querySelector('.sidebar').classList.add('sidebar-open');
+  document.getElementById('sidebar-backdrop').classList.add('visible');
+  document.getElementById('sidebar-toggle-btn').classList.add('is-hidden');
+  document.getElementById('sidebar-toggle-btn').setAttribute('aria-expanded', 'true');
+}
+
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('sidebar-open');
+  document.getElementById('sidebar-backdrop').classList.remove('visible');
+  document.getElementById('sidebar-toggle-btn').classList.remove('is-hidden');
+  document.getElementById('sidebar-toggle-btn').setAttribute('aria-expanded', 'false');
+}
+
+function toggleSidebar() {
+  const isOpen = document.querySelector('.sidebar').classList.contains('sidebar-open');
+  if (isOpen) closeSidebar(); else openSidebar();
+}
+
 function showToast(message, type = 'info', duration = CONFIG.TIMEOUTS.TOAST_DURATION) {
   const toast = document.getElementById('toast');
   if (!toast) return;

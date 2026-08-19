@@ -63,6 +63,9 @@
 
 <!-- ========== APP SCREEN (pós-login) ========== -->
 <div id="app-screen" class="hidden">
+  <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
   <aside class="sidebar">
     <header class="sidebar-header">
       <div class="sidebar-logo">
@@ -72,6 +75,7 @@
           <p class="sidebar-logo-sub">V-4.0</p>
         </div>
       </div>
+      <button id="sidebar-close-btn" class="sidebar-close-btn" aria-label="Fechar menu">✕</button>
     </header>
 
     <nav class="sidebar-nav">
@@ -94,7 +98,7 @@
 
       <div class="nav-section-label">Conta</div>
       <button class="nav-item" data-section="logout">
-        <span class="nav-item-icon">🚪</span><span>Sair</span>
+        <span class="nav-item-icon">𖣯</span><span>Sair</span>
       </button>
     </nav>
 

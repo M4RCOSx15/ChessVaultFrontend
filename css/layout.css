@@ -8,6 +8,10 @@
 #app-screen.visible { display: flex; }
 
 /* ========== SIDEBAR ========== */
+/* A sidebar agora é um painel retrátil (drawer): fica fora da tela por
+   padrão e desliza por cima do conteúdo quando aberta. Como ela sai do
+   fluxo normal (position: fixed), o <main> ocupa a largura toda sozinho
+   e o fundo permanece "normal" (sem espaço reservado) quando fechada. */
 .sidebar {
   width: 230px;
   background: var(--ink);
@@ -15,18 +19,87 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
   overflow: hidden;
+  z-index: 1101;
+  transform: translateX(-100%);
+  transition: transform var(--trans-slow);
+  box-shadow: none;
 }
+.sidebar.sidebar-open {
+  transform: translateX(0);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Botão fixo no canto superior esquerdo para abrir a sidebar.
+   Mesma paleta/estilo do resto do Chess Vault: fundo escuro (--ink),
+   igual à sidebar, para contrastar com o fundo claro (--bg) da tela. */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 1100;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 17px;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--trans-normal);
+}
+.sidebar-toggle-btn:hover { background: #3a3826; }
+.sidebar-toggle-btn.is-hidden { opacity: 0; pointer-events: none; }
+
+/* Botão de fechar dentro da sidebar: fundo claro (cor do painel/--bg),
+   para contrastar com o fundo escuro da própria sidebar. */
+.sidebar-close-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--ink);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--trans-normal);
+}
+.sidebar-close-btn:hover { background: #ffffff; }
+
+/* Fundo escurecido atrás da sidebar quando aberta (clicar nele fecha) */
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 28, 22, 0.45);
+  z-index: 1099;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--trans-slow);
+}
+.sidebar-backdrop.visible { opacity: 1; pointer-events: auto; }
 
 .sidebar-header {
   padding: 1.5rem 1.25rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.sidebar-logo { display: flex; align-items: center; gap: 10px; }
+.sidebar-logo { display: flex; align-items: center; gap: 10px; min-width: 0; }
 
 .logo-icon-img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 
@@ -80,7 +153,7 @@ main { flex: 1; min-width: 0; background: var(--bg); display: flex; flex-directi
 
 .topbar {
   background: var(--bg); border-bottom: 1px solid var(--border);
-  padding: 0 2rem; height: 58px; display: flex; align-items: center;
+  padding: 0 2rem 0 4.5rem; height: 58px; display: flex; align-items: center;
   justify-content: space-between; flex-shrink: 0; position: sticky; top: 0; z-index: 10;
 }
 .topbar-title { font-size: 16px; font-weight: 600; color: var(--ink); letter-spacing: -0.2px; }
@@ -99,7 +172,8 @@ main { flex: 1; min-width: 0; background: var(--bg); display: flex; flex-directi
 
 @media (max-width: 768px) {
   .sidebar { width: 200px; }
-  .topbar, .content-area { padding-left: 1rem; padding-right: 1rem; }
+  .topbar { padding-left: 3.5rem; padding-right: 1rem; }
+  .content-area { padding-left: 1rem; padding-right: 1rem; }
   .stats-row { grid-template-columns: 1fr; }
 }
 

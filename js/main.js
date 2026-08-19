@@ -40,7 +40,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (section === 'books')   loadBooksList();
       if (section === 'videos')  loadVideosList();
       if (section === 'puzzles') loadPuzzlesSection();
+      closeSidebar();
     });
+  });
+
+  // Abrir/fechar sidebar retrátil
+  document.getElementById('sidebar-toggle-btn').addEventListener('click', openSidebar);
+  document.getElementById('sidebar-close-btn').addEventListener('click', closeSidebar);
+  document.getElementById('sidebar-backdrop').addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSidebar();
   });
 
   // Jogadores
