@@ -5,7 +5,7 @@ const CONFIG = {
   // Hoje o UserController está em /api/usuario/v1, mas login/registro
   // deveriam viver num AuthController separado (ver mentoria anterior).
   // Ajuste API_BASE_URL e os ENDPOINTS abaixo para bater com o que você criar.
-  API_BASE_URL: 'https://vercel.com/atom-c921/chess-vault/CWiSNDqSYtvSRVpqyLhop7QiLYVo',
+  API_BASE_URL: 'https://chess-vault-six.vercel.app',
 
   ENDPOINTS: {
     AUTH: {
